@@ -1,10 +1,19 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
+import { NavigationStackScreenProps } from "react-navigation-stack";
 
-export default function CategoryMeals() {
+export default function CategoryMeals({
+  navigation
+}: NavigationStackScreenProps) {
   return (
     <View style={styles.screen}>
       <Text>CategoryMeals</Text>
+      <Button
+        title="Go To MealDetails"
+        onPress={() => {
+          navigation.push("MealDetails");
+        }}
+      />
     </View>
   );
 }

@@ -1,7 +1,8 @@
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
+import MealsNavigator from "./src/navigation/MealsNavigator";
 
 function fetchFonts() {
   return Font.loadAsync({
@@ -21,11 +22,7 @@ export default function App() {
     );
   }
 
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-    </View>
-  );
+  return <MealsNavigator />;
 }
 
 const styles = StyleSheet.create({
