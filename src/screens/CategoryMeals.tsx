@@ -1,13 +1,26 @@
 import React from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
-import { NavigationStackScreenProps } from "react-navigation-stack";
+import {
+  NavigationStackScreenComponent,
+  NavigationStackScreenProps
+} from "react-navigation-stack";
+import { CATEGORIES } from "../data/dummy-data";
 
-export default function CategoryMeals({
-  navigation
-}: NavigationStackScreenProps) {
+interface Props {
+  categoryId: string;
+}
+
+const CategoryMeals: NavigationStackScreenComponent<
+  Props,
+  NavigationStackScreenProps
+> = ({ navigation }) => {
+  const id = navigation.getParam("categoryId");
+  const category = CATEGORIES.find(c => c.id === id);
+
   return (
     <View style={styles.screen}>
       <Text>CategoryMeals</Text>
+      <Text>{category.title}</Text>
       <Button
         title="Go To MealDetails"
         onPress={() => {
@@ -16,7 +29,18 @@ export default function CategoryMeals({
       />
     </View>
   );
-}
+};
+
+CategoryMeals.navigationOptions = ({
+  navigation
+}: NavigationStackScreenProps) => {
+  const id = navigation.getParam("categoryId");
+  const category = CATEGORIES.find(c => c.id === id);
+
+  return {
+    headerTitle: category.title
+  };
+};
 
 const styles = StyleSheet.create({
   screen: {
@@ -25,3 +49,5 @@ const styles = StyleSheet.create({
     alignItems: "center"
   }
 });
+
+export default CategoryMeals;

@@ -2,7 +2,6 @@ import React from "react";
 import {
   FlatList,
   ListRenderItemInfo,
-  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -12,7 +11,6 @@ import {
   NavigationStackScreenComponent,
   NavigationStackScreenProps
 } from "react-navigation-stack";
-import Colors from "../constants/Colors";
 import { CATEGORIES } from "../data/dummy-data";
 import Category from "../models/category";
 
@@ -25,7 +23,12 @@ const Categories: NavigationStackScreenComponent<
       <TouchableOpacity
         style={styles.gridItem}
         onPress={() => {
-          navigation.navigate("CategoryMeals");
+          navigation.navigate({
+            routeName: "CategoryMeals",
+            params: {
+              categoryId: item.id
+            }
+          });
         }}
       >
         <View>
@@ -46,11 +49,7 @@ const Categories: NavigationStackScreenComponent<
 };
 
 Categories.navigationOptions = {
-  headerTitle: "Meals",
-  headerStyle: {
-    backgroundColor: Platform.OS === "android" ? Colors.primaryColor : ""
-  },
-  headerTintColor: Platform.OS === "android" ? "white" : Colors.primaryColor
+  headerTitle: "Meals"
 };
 
 const styles = StyleSheet.create({
