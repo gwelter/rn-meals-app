@@ -21,7 +21,8 @@ const Categories: NavigationStackScreenComponent<
           navigation.navigate({
             routeName: "CategoryMeals",
             params: {
-              categoryId: item.id
+              categoryId: item.id,
+              title: item.title
             }
           });
         }}
