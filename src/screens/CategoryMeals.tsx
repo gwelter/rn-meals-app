@@ -25,7 +25,14 @@ const CategoryMeals: NavigationStackScreenComponent<
         duration={item.duration}
         complexity={item.complexity}
         affordability={item.affordability}
-        onSelect={() => {}}
+        onSelect={() => {
+          navigation.navigate({
+            routeName: "MealDetails",
+            params: {
+              mealId: item.id
+            }
+          });
+        }}
       />
     );
   }

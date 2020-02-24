@@ -1,13 +1,26 @@
 import React from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
-import { NavigationStackScreenProps } from "react-navigation-stack";
+import {
+  NavigationStackScreenComponent,
+  NavigationStackScreenProps
+} from "react-navigation-stack";
+import { MEALS } from "../data/dummy-data";
+import Meal from "../models/meal";
 
-export default function MealDetails({
-  navigation
-}: NavigationStackScreenProps) {
+interface Props {
+  mealId: string;
+}
+
+const MealDetails: NavigationStackScreenComponent<
+  Props,
+  NavigationStackScreenProps
+> = ({ navigation }) => {
+  const mealId = navigation.getParam("mealId");
+  const selectedMeal = MEALS.find((meal: Meal) => meal.id === mealId);
+
   return (
     <View style={styles.screen}>
-      <Text>MealDetails</Text>
+      <Text>{selectedMeal.title}</Text>
       <Button
         title="Go back"
         onPress={() => {
@@ -22,7 +35,17 @@ export default function MealDetails({
       />
     </View>
   );
-}
+};
+
+MealDetails.navigationOptions = ({
+  navigation
+}: NavigationStackScreenProps) => {
+  const mealId = navigation.getParam("mealId");
+  const selectedMeal = MEALS.find((meal: Meal) => meal.id === mealId);
+  return {
+    headerTitle: selectedMeal.title
+  };
+};
 
 const styles = StyleSheet.create({
   screen: {
@@ -31,3 +54,5 @@ const styles = StyleSheet.create({
     alignItems: "center"
   }
 });
+
+export default MealDetails;
