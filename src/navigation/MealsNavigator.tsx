@@ -18,6 +18,12 @@ const defaultStackNavigationOptions = {
     headerStyle: {
       backgroundColor: Platform.OS === "android" ? Colors.primaryColor : ""
     },
+    headerTitleStyle: {
+      fontFamily: "open-sans-bold"
+    },
+    headerBackTitleStyle: {
+      fontFamily: "open-sans"
+    },
     headerTintColor: Platform.OS === "android" ? "white" : Colors.primaryColor
   }
 };
@@ -64,10 +70,16 @@ const MealsFavTabNavigator =
   Platform.OS === "android"
     ? createMaterialBottomTabNavigator(tabsScreenConfig, {
         activeColor: "white",
-        shifting: true
+        shifting: true,
+        barStyle: {
+          backgroundColor: Colors.primaryColor
+        }
       })
     : createBottomTabNavigator(tabsScreenConfig, {
         tabBarOptions: {
+          labelStyle: {
+            fontFamily: "open-sans-bold"
+          },
           activeTintColor: Colors.accent
         }
       });
