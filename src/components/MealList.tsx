@@ -1,6 +1,7 @@
 import React from "react";
 import { FlatList, ListRenderItemInfo, StyleSheet, View } from "react-native";
 import { StackNavigationProp } from "react-navigation-stack/lib/typescript/src/vendor/types";
+import { useSelector } from "react-redux";
 import Meal from "../models/meal";
 import MealItem from "./MealItem";
 
@@ -10,7 +11,9 @@ interface Props {
 }
 
 export default function MealList({ listData, navigation }: Props) {
+  const favoriteMeals = useSelector(state => state.meals.favoriteMeals);
   function renderMealItem({ item }: ListRenderItemInfo<Meal>) {
+    const isFavorite = favoriteMeals.some(meal => meal.id === item.id);
     return (
       <MealItem
         title={item.title}
@@ -22,7 +25,9 @@ export default function MealList({ listData, navigation }: Props) {
           navigation.navigate({
             routeName: "MealDetails",
             params: {
-              mealId: item.id
+              mealId: item.id,
+              mealTitle: item.title,
+              isFavorite
             }
           });
         }}
