@@ -1,4 +1,5 @@
 import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 import {
   NavigationStackScreenComponent,
   NavigationStackScreenProps
@@ -18,11 +19,19 @@ const CategoryMeals: NavigationStackScreenComponent<
   NavigationStackScreenProps
 > = ({ navigation }) => {
   const id = navigation.getParam("categoryId");
-  const avaliableMelas = useSelector(state => state.meals.filderedMeals);
+  const avaliableMelas = useSelector(state => state.meals.filteredMeals);
 
   const displayedMeals = avaliableMelas.filter(
     (meal: Meal) => meal.categoryIds.indexOf(id) >= 0
   );
+
+  if (displayedMeals.length === 0) {
+    return (
+      <View style={styles.content}>
+        <Text>No meals found, maybe check your filters</Text>
+      </View>
+    );
+  }
 
   return <MealList listData={displayedMeals} navigation={navigation} />;
 };
@@ -37,5 +46,13 @@ CategoryMeals.navigationOptions = ({
     headerTitle: category.title
   };
 };
+
+const styles = StyleSheet.create({
+  content: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  }
+});
 
 export default CategoryMeals;

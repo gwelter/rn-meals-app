@@ -4,8 +4,10 @@ import { NavigationScreenComponent } from "react-navigation";
 import { NavigationDrawerScreenProps } from "react-navigation-drawer";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { NavigationStackScreenProps } from "react-navigation-stack";
+import { useDispatch } from "react-redux";
 import HeaderButton from "../components/HeaderButton";
 import Colors from "../constants/Colors";
+import { setFilter } from "../store/actions/meals";
 
 const FilterSwitch = ({
   label,
@@ -38,6 +40,8 @@ const Filters: NavigationScreenComponent<{}, NavigationStackScreenProps> = ({
   const [isVegan, setIsVegan] = useState(false);
   const [isVegetarian, setIsVegetarian] = useState(false);
 
+  const dispatch = useDispatch();
+
   const saveFilters = useCallback(() => {
     const appliedFilters = {
       isGlutenFree,
@@ -45,7 +49,8 @@ const Filters: NavigationScreenComponent<{}, NavigationStackScreenProps> = ({
       isVegan,
       isVegetarian
     };
-    console.log(appliedFilters);
+
+    dispatch(setFilter(appliedFilters));
   }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian]);
 
   useEffect(() => {
